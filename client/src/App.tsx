@@ -1,12 +1,9 @@
-import Home from "./pages/Home";
-
+// App.js
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router";
 
 const App = () => {
-  return (
-    <div className="bg-yellow-200" >
-      <Home />
-    </div>
-  )
-}
+  return <RouterProvider router={router} />;
+};
 
 export default App;
