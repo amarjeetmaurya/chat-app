@@ -6,6 +6,7 @@ import type { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import userRoutes from "./routes/userRoutes.js"
 import authRoutes from "./routes/authRoutes.js"
+import apiRoutes from "./routes/apiRoutes.js"
 import { checkAuth } from "./middlewares/checkAuth.js";
 import cookieParser from "cookie-parser";
 
@@ -26,6 +27,7 @@ app.get("/", checkAuth, (req: Request, res: Response) => {
     res.json({sucess: "hey! done!!"});
 });
 
+app.use("/api", apiRoutes)
 app.use("/user", checkAuth, userRoutes);
 app.use("/auth", authRoutes);
 
