@@ -2,6 +2,58 @@ import type { NextFunction, Request, Response } from "express";
 import { verifyIdToken } from "../services/googleAuth.js";
 import User from "../models/User.js";
 import { Session } from "../models/Session.js";
+import PendingSignup from "../models/PendingSignup.js";
+import { requestOtp, verifyOtp } from "../services/otp.js";
+
+// =================== Request otp =====================
+export async function requestOtpController(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    console.log(req.body);
+
+    const { username, email, password } = req.body;
+    if (!email && !password) {
+      return res.status(400).json({ message: "Email required" });
+    }
+    // ✅ Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "User already registered" });
+    }
+    const pendingUser = await PendingSignup.findOne({ email });
+    if (pendingUser) {
+      pendingUser.username = username;
+      pendingUser.password = password;
+      await pendingUser.save();
+    } else {
+      await PendingSignup.create({ username, email, password });
+    }
+
+    const result = await requestOtp({ username, email, password });
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+// ============== verify OTP ===============
+// export async function verifyOtpController(
+//   req: Request,
+//   res: Response,
+//   next: NextFunction,
+// ) {
+//   // console.log(req.body);
+//   try {
+//     const { email, otp } = req.body;
+//     const result = await verifyOtp({ email, otp });
+//     res.json(result);
+//   } catch (err) {
+//     next(err);
+//   }
+// }
 
 // ============== login with google ==========
 export const loginWithGoogle = async (
