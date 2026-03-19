@@ -1,5 +1,7 @@
+import { GoogleLogin } from "@react-oauth/google";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { loginWithGoogle } from "./apis/loginWithGoogle";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -22,8 +24,9 @@ const Register = () => {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold text-gray-800">Create your account</h3>
-
+      <h3 className="text-lg font-semibold text-gray-800">
+        Create your account
+      </h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <label className="block">
           <span className="text-sm text-gray-700">Username</span>
@@ -34,6 +37,7 @@ const Register = () => {
             className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="yourname"
           />
+          3
         </label>
 
         <label className="block">
@@ -72,10 +76,34 @@ const Register = () => {
           {loading ? "Creating account..." : "Create account"}
         </button>
       </form>
+      <GoogleLogin
+        onSuccess={async (credentialResponse) => {
+          console.log(credentialResponse);
+          const idToken = credentialResponse.credential;
 
+          if (!idToken) {
+            console.error("No credential received");
+            return;
+          }
+          const data = await loginWithGoogle(idToken);
+          if (data.error) {
+            console.log(data);
+            return;
+          }
+          navigate("/");
+        }}
+        onError={() => {
+          console.log("Login Failed");
+        }}
+        useOneTap
+      />
+      ;
       <p className="text-sm text-center text-gray-500">
         Already have an account?{" "}
-        <Link to="/login" className="text-indigo-600 font-medium hover:underline">
+        <Link
+          to="/login"
+          className="text-indigo-600 font-medium hover:underline"
+        >
           Sign in
         </Link>
       </p>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +14,6 @@ const Login = () => {
     setError(null);
     setLoading(true);
     try {
-      // TODO: replace with real auth call
       await new Promise((r) => setTimeout(r, 700));
       navigate("/app/explore");
     } catch (err) {
