@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import { Session } from "../models/Session";
+import type { NextFunction, Request, Response } from "express";
+import { Session } from "../models/Session.js";
 
 export const checkAuth = async (
   req: Request,
