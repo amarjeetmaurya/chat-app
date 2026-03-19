@@ -4,6 +4,7 @@ import User from "../models/User.js";
 import { Session } from "../models/Session.js";
 import PendingSignup from "../models/PendingSignup.js";
 import { requestOtp, verifyOtp } from "../services/otp.js";
+import { completeSignupService } from "../services/signup.js";
 
 // =================== Request otp =====================
 export async function requestOtpController(
@@ -40,20 +41,45 @@ export async function requestOtpController(
 }
 
 // ============== verify OTP ===============
-// export async function verifyOtpController(
-//   req: Request,
-//   res: Response,
-//   next: NextFunction,
-// ) {
-//   // console.log(req.body);
-//   try {
-//     const { email, otp } = req.body;
-//     const result = await verifyOtp({ email, otp });
-//     res.json(result);
-//   } catch (err) {
-//     next(err);
-//   }
-// }
+export async function verifyOtpController(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  console.log(req.body);
+  try {
+    const { email, otp } = req.body;
+    const result = await verifyOtp({ email, otp });
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+//============= complete signup ===============
+export async function completeSignupController(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const payload = req.otpSession;
+    console.log({ payload });
+    const session = await completeSignupService(payload.email);
+    console.log({session})
+
+    res.cookie("sid", session.id, {
+      httpOnly: true,
+      signed: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    });
+    res.json({ message: "Signup complete" });
+  } catch (err) {
+    next(err);
+  }
+}
 
 // ============== login with google ==========
 export const loginWithGoogle = async (
@@ -112,6 +138,7 @@ export const loginWithGoogle = async (
 
     return res.json({ message: "logged in" });
   }
+  
 
   console.log("new User login");
 
