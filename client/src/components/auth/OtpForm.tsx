@@ -7,8 +7,8 @@ interface OtpFormProps {
     password?: string;
   };
   otp: string[];
-  handleOtpChange: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void;
-  handleOtpKeyDown: (e: React.KeyboardEvent<HTMLInputElement>, index: number) => void;
+  handleOtpChange: (index: number, value: string) => void;
+  handleOtpKeyDown: (index: number, e: React.KeyboardEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   serverError: string | null;
   isSuccess: boolean;
@@ -121,7 +121,7 @@ export default function OtpForm({
             type="button"
             onClick={() => {
               if (canResend) {
-                submitCredentials({ preventDefault: () => {} });
+                submitCredentials({ preventDefault: () => {} } as React.FormEvent<HTMLFormElement>);
               }
             }}
             disabled={!canResend}

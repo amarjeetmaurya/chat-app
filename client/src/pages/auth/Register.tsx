@@ -11,7 +11,7 @@ const Register = () => {
     password: "1234",
   });
 
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
 
@@ -55,7 +55,7 @@ const Register = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setServerError("");
 
