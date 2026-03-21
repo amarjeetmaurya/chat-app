@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "tsx watch --env-file=.env src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node --env-file=.env dist/server.js"
+  },
+  "engines": {
+    "node": "22.x"
   },
   "keywords": [],
   "author": "",
@@ -18,11 +21,11 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^25.5.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@types/node": "^22.0.0",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
