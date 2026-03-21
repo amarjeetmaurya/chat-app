@@ -12,9 +12,15 @@ export function createOtpSessionToken(email: string, purpose: string) {
   );
 }
 
+interface OtpSessionPayload {
+  email: string;
+  type: string;
+  purpose: string;
+}
+
 export function verifyOtpSessionToken(token : string, expectedPurpose: string) {
   console.log(token)
-  const payload = verifyToken(token);
+  const payload = verifyToken(token) as OtpSessionPayload | null;
   if (!payload) throw new Error("Invalid or expired OTP session");
 
   if (payload.type !== "OTP_SESSION") {
