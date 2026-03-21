@@ -2,7 +2,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 
 export const loginWithGoogle = async (idToken : string) => {
-  console.log(idToken);
+  // console.log(idToken);
   const response = await fetch(`${BASE_URL}/auth/google`, {
     method: "POST",
     headers: {
