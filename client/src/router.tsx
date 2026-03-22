@@ -19,6 +19,7 @@ import Channel from "./pages/channel/Channel";
 import Members from "./pages/server/Members";
 import ServerSettings from "./pages/server/ServerSettings";
 import ErrorPage from "./pages/ErrorPage";
+import TermsPage from "./pages/TermsPage";
 
 // user pages
 // import UserSettings from "./pages/user/UserSettings";
@@ -91,6 +92,11 @@ export const router = createBrowserRouter([
   //   path: "/profile/:userId",
   //   element: <Profile />
   // }
+
+  {
+    path: "/terms",
+    element: <TermsPage />,
+  },
 
   {
     path: "*",

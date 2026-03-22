@@ -153,98 +153,109 @@ const Register = () => {
   }, [step, countdown]);
 
   return (
-    <div className="space-y-6 max-w-full">
+    <div className="space-y-6 max-w-full ">
       {step == 1 ? (
         <div>
-          <form onSubmit={submitCredentials} className="grid gap-3 mb-3">
-            <div className="grid gap-3 mb-3">
-              {/* Username */}
-              <label className="block">
-                <span className="text-md font-medium text-gray-700">
-                  Username
-                </span>
-                <div className="relative flex items-center bg-white">
-                  <input
-                    type="text"
-                    name="username"
-                    required
-                    value={formData.username}
-                    onChange={(e) =>
-                      setFormData({ ...formData, username: e.target.value })
-                    }
-                    placeholder="yourname"
-                    className="w-full border-2 border-border p-2 rounded-md text-title font-semibold focus:border-title transition"
-                  />
-                  <i className="ri-user-line absolute right-5 text-xl text-title"></i>
-                </div>
-              </label>
-
-              {/* Email */}
-              <label className="block">
-                <span className="text-md font-medium text-gray-700">Email</span>
-                <div className="relative flex items-center bg-white">
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    placeholder="you@example.com"
-                    className="w-full border-2 border-border p-2 rounded-md text-title font-semibold focus:border-title transition"
-                  />
-                  <i className="ri-mail-line absolute right-5 text-xl text-title"></i>
-                </div>
-              </label>
-
-              {/* Password */}
-              <label className="block">
-                <div className="flex justify-between items-center">
-                  <span className="text-md font-medium text-gray-700">
-                    Password
-                  </span>
-                  <span className="text-xs text-gray-400">
-                    min 8 characters
-                  </span>
-                </div>
-                <div className="relative flex items-center bg-white">
-                  <input
-                    type="password"
-                    name="password"
-                    required
-                    minLength={8}
-                    value={formData.password}
-                    onChange={(e) =>
-                      setFormData({ ...formData, password: e.target.value })
-                    }
-                    placeholder="Create a password"
-                    className="w-full border-2 border-border p-2 rounded-md text-title font-semibold focus:border-title transition"
-                  />
-                  <i className="ri-eye-line absolute right-5 text-xl text-title cursor-pointer"></i>
-                </div>
-              </label>
-            </div>
-
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full p-3 rounded-md font-semibold bg-red-500 text-white hover:bg-red-700 transition disabled:opacity-60"
-            >
-              {loading ? "Creating account..." : "Create account"}
-            </button>
-          </form>
-          <p className="text-sm text-center text-gray-500">
-            Already have an account?{" "}
-            <Link
-              to="/login"
-              className="text-indigo-600 font-medium hover:underline"
-            >
-              Sign in
-            </Link>
-          </p>
+  <form onSubmit={submitCredentials} className="grid gap-3 mb-3">
+    <div className="grid gap-3 mb-3">
+      {/* Username */}
+      <label className="block">
+        <span className="text-md font-medium text-gray-700">Username</span>
+        <div className="relative flex items-center bg-white">
+          <input
+            type="text"
+            name="username"
+            required
+            value={formData.username}
+            onChange={(e) =>
+              setFormData({ ...formData, username: e.target.value })
+            }
+            placeholder="yourname"
+            className="w-full border-2 border-border p-2 rounded-md text-title font-semibold focus:border-title transition"
+          />
+          <i className="ri-user-line absolute right-5 text-xl text-title"></i>
         </div>
+      </label>
+
+      {/* Email */}
+      <label className="block">
+        <span className="text-md font-medium text-gray-700">Email</span>
+        <div className="relative flex items-center bg-white">
+          <input
+            type="email"
+            name="email"
+            required
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            placeholder="you@example.com"
+            className="w-full border-2 border-border p-2 rounded-md text-title font-semibold focus:border-title transition"
+          />
+          <i className="ri-mail-line absolute right-5 text-xl text-title"></i>
+        </div>
+      </label>
+
+      {/* Password */}
+      <label className="block">
+        <div className="flex justify-between items-center">
+          <span className="text-md font-medium text-gray-700">Password</span>
+          <span className="text-xs text-gray-400">min 8 characters</span>
+        </div>
+        <div className="relative flex items-center bg-white">
+          <input
+            type="password"
+            name="password"
+            required
+            minLength={8}
+            value={formData.password}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+            placeholder="Create a password"
+            className="w-full border-2 border-border p-2 rounded-md text-title font-semibold focus:border-title transition"
+          />
+          <i className="ri-eye-line absolute right-5 text-xl text-title cursor-pointer"></i>
+        </div>
+      </label>
+
+      {/* Terms & Conditions */}
+      {/* <label className="flex items-center font-bold gap-2 text-sm text-gray-600">
+        <input
+          type="checkbox"
+          name="terms"
+          required
+          checked={formData.terms || false}
+          onChange={(e) =>
+            setFormData({ ...formData, terms: e.target.checked })
+          }
+          className="w-4 h-4 border-2 border-border rounded"
+        />
+        I agree to the{" "}
+        <Link to="/terms" className="text-indigo-600 hover:underline">
+          Terms & Conditions
+        </Link>
+      </label> */}
+    </div>
+
+    {/* Submit */}
+    <button
+      type="submit"
+      disabled={loading}
+      className="w-full p-3 rounded-md font-semibold bg-blue-500 text-white hover:shadow-[0_8px_24px_rgba(0,20,205,0.4)] transition disabled:opacity-60"
+    >
+      {loading ? "Creating account..." : "Create account"}
+    </button>
+  </form>
+
+  <p className="text-sm text-center text-gray-500">
+    Already have an account?{" "}
+    <Link to="/login" className="text-indigo-600 font-medium hover:underline">
+      Sign in
+    </Link>
+  </p>
+</div>
+
       ) : (
         <div>
           <OtpForm
@@ -266,16 +277,6 @@ const Register = () => {
           />
         </div>
       )}
-
-      {/* <p className="text-sm text-center text-gray-500">
-        Already have an account?{" "}
-        <Link
-          to="/login"
-          className="text-indigo-600 font-medium hover:underline"
-        >
-          Sign in
-        </Link>
-      </p> */}
     </div>
   );
 };
